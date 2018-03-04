@@ -6,3 +6,15 @@ services:
       POSTGRES_PASSWORD: fpck
     ports:
       - 5432:5432
+
+  migration:
+    image: fpck_migration:0.1
+    build:
+      context: ./migration
+    volumes:
+      - ./migration:/srv
+
+
+
+
+
