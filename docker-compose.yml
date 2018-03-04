@@ -6,6 +6,8 @@ services:
       POSTGRES_PASSWORD: fpck
     ports:
       - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
   migration:
     image: fpck_migration:0.1
@@ -15,3 +17,6 @@ services:
       - ./migration:/srv
     depends_on:
       - db
+    command: alembic upgrade head
+volumes:
+  db-data:
