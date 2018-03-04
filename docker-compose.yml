@@ -13,8 +13,5 @@ services:
       context: ./migration
     volumes:
       - ./migration:/srv
-
-
-
-
-
+    depends_on:
+      - db
