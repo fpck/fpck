@@ -1,10 +1,8 @@
-import HelloWorld from '@/components/HelloWorld'
-import { Datetime } from 'vue-datetime';
+import PageHeader from '@/components/PageHeader'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
-    Datetime,
+    PageHeader,
   }
 }
