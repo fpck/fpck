@@ -18,5 +18,16 @@ services:
     depends_on:
       - db
     command: alembic upgrade head
+
+  dashboard:
+    image: fpck_dashboard:0.1
+    build:
+      context: ./dashboard
+    volumes:
+      - ./dashboard:/srv
+    command: npm run serve
+    ports:
+      - 8080:8080
+
 volumes:
   db-data:
