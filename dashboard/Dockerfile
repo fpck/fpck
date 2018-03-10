@@ -1,6 +1,8 @@
+FROM node:9-slim
 
-FROM node:9
 RUN npm install -g @vue/cli
+
 WORKDIR /srv
+COPY ./ /srv
 RUN npm install
 
