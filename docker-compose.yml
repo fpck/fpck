@@ -27,7 +27,7 @@ services:
       - ./dashboard:/srv
     command: npm run dev
     ports:
-      - 8080:8080
+      - ${WEBPORT}:8080
 
 volumes:
   db-data:
