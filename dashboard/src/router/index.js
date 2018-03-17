@@ -15,6 +15,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: pages.About
-    }
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      component: pages.Blog
+    },
   ]
 })
