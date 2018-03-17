@@ -26,8 +26,10 @@ services:
     volumes:
       - ./dashboard:/srv
     command: npm run dev
+    environment:
+      - PORT=${WEBPACKPORT}
     ports:
-      - ${WEBPORT}:8080
+      - ${WEBPACKPORT}:${WEBPACKPORT}
 
 volumes:
   db-data:
