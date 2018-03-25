@@ -1,21 +1,26 @@
 import PageContent from '@/components/PageContent';
-import { GoogleFinanceApi } from "@/services/api";
+import { QuandlApi } from "@/services/api";
 export default {
   components: {
     PageContent
   },
   name: 'Home',
+  data: function () {
+    return {
+      rows:[],
+    }
+  },
   methods: {
     getPrice: function () {
-      console.log('aaa');
-      console.log(GoogleFinanceApi);
-      const api = new GoogleFinanceApi({
-        exchange: 'TYO', 
-        period: '1Y', 
-        interval: 86400, 
-        code: 7203 
+      const api = new QuandlApi({
+        databaseCode: 'WIKI', 
+        datasetCode: 'FB', 
       });
-      api.all();
+      api.all()
+        .then(res => {
+          console.log(res.data.dataset_data.data);
+          this.rows = res.data.dataset_data.data
+        });
     }
   } 
 };

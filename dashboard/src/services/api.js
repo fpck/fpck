@@ -1,23 +1,15 @@
 import axios from "axios";
 
-
-export class GoogleFinanceApi {
-  constructor({exchange, period, interval, code}) {
-    this.url  = 'https://www.google.com/finance/getprices';
-    this.period = period;
-    this.interval = interval;
-    this.code = code;
-    this.exchange = exchange;
+export class QuandlApi {
+  constructor({databaseCode, datasetCode}) {
+    this.url  = 'https://www.quandl.com/api/v3/datasets';
+    this.databaseCode = databaseCode;
+    this.datasetCode = datasetCode;
   }
 
   all(){
-    const params = {
-      p: this.period,
-      i: this.interval,
-      x: this.exchange,
-      q: this.code
-    }
-    return this._get(this.url, params);
+    const url = `${this.url}/${this.databaseCode}/${this.datasetCode}/data.json`
+    return this._get(url, {});
   }
   _get (url, params){
     return axios.get(url, {params: params});

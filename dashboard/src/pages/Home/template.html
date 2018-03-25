@@ -2,8 +2,15 @@
   <div class="columns">
     <div class="column">
       <a class="button" @click='getPrice'>Button</a>
-    </div>
-    <div class="column">
+      <aside class="menu">
+        <ul class="menu-list">
+          <ui :key='row[0]' v-for='row in rows'>
+            <a>
+              {{ row }}
+            </a>
+          </ui>
+        </ul>
+      </aside>
     </div>
   </div>
 </page-content>
