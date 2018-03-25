@@ -1,16 +1,9 @@
 <page-content>
   <div class="columns">
     <div class="column">
-      <a class="button" @click='getPrice'>Button</a>
-      <aside class="menu">
-        <ul class="menu-list">
-          <ui :key='row[0]' v-for='row in rows'>
-            <a>
-              {{ row }}
-            </a>
-          </ui>
-        </ul>
-      </aside>
+      <b-input v-model="code"></b-input>
+      <a class="button" @click='getPrice'>reflesh</a>
+      <plot :data="plotData" :layout="layout" />
     </div>
   </div>
 </page-content>

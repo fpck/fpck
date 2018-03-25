@@ -3,10 +3,16 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import Buefy from 'buefy';
 import 'vue-datetime/dist/vue-datetime.css';
 import 'bulma/css/bulma.css';
 
+
 Vue.config.productionTip = false;
+
+Vue.use(Buefy, {
+  defaultIconPack: 'fa'
+});
 
 /* eslint-disable no-new */
 new Vue({
