@@ -1,40 +1,21 @@
 import PageContent from '@/components/PageContent';
+import { GoogleFinanceApi } from "@/services/api";
 export default {
   components: {
     PageContent
   },
-  data: function () {
-    return {
-      plotData1: [
-        {
-          x: 1,
-          y: 1
-        },
-        {
-          x: 2,
-          y: -1
-        },
-        {
-          x: 3,
-          y: 2
-        }
-      ],
-
-      plotData2: [
-        {
-          x: 1,
-          y: -1
-        },
-        {
-          x: 2,
-          y: 1
-        },
-        {
-          x: 3,
-          y: 2
-        }
-      ]
-    };
-  },
-  name: 'Home'
+  name: 'Home',
+  methods: {
+    getPrice: function () {
+      console.log('aaa');
+      console.log(GoogleFinanceApi);
+      const api = new GoogleFinanceApi({
+        exchange: 'TYO', 
+        period: '1Y', 
+        interval: 86400, 
+        code: 7203 
+      });
+      api.all();
+    }
+  } 
 };
