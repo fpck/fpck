@@ -1,7 +1,7 @@
-import PageContent  from "@/components/PageContent";
+import PageContent from '@/components/PageContent';
 export default {
   components: {
-    PageContent,
+    PageContent
   },
-  name: 'Blog',
-}
+  name: 'Blog'
+};

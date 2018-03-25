@@ -1,3 +1,3 @@
 export default {
-  name: 'PageSideBar',
-}
+  name: 'PageSideBar'
+};

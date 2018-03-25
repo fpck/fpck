@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 import * as pages from '@/pages';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -20,6 +20,6 @@ export default new Router({
       path: '/blog',
       name: 'Blog',
       component: pages.Blog
-    },
+    }
   ]
-})
+});
