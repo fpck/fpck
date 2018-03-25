@@ -1,9 +1,7 @@
 import PageContent  from "@/components/PageContent";
-import LineChart  from "@/components/LineChart";
 export default {
   components: {
     PageContent,
-    LineChart,
   },
   data: function () {
     return{
