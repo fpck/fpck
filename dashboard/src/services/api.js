@@ -20,6 +20,6 @@ export class GoogleFinanceApi {
     return this._get(this.url, params);
   }
   _get (url, params){
-    return axios.post(url, {params: params});
+    return axios.get(url, {params: params});
   }
 };
