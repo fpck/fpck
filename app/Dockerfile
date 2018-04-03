@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     llvm 
 
 ENV LLVM_CONFIG $(which llvm-config-3.9)
+ENV PYTHONPATH "${PYTHONPATH}:/srv"
 
 WORKDIR /srv
 COPY ./requirements.txt /srv/requirements.txt
