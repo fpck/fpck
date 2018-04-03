@@ -10,7 +10,7 @@ class Download(luigi.Task):
     path = luigi.Parameter()
 
     def output(self):
-        return luigi.LocalTarget(self.filename)
+        return luigi.LocalTarget(self.path)
 
     def run(self):
         urllib.request.urlretrieve(self.url, self.path)
