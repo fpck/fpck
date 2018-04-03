@@ -10,7 +10,6 @@ services:
       - db-data:/var/lib/postgresql/data
 
   migration:
-    image: fpck_migration:0.1
     build:
       context: ./migration
     volumes:
@@ -20,7 +19,6 @@ services:
     command: alembic upgrade head
 
   dashboard:
-    image: fpck_dashboard:0.1
     build:
       context: ./dashboard
     volumes:
@@ -30,6 +28,21 @@ services:
       - PORT=${WEBPACKPORT}
     ports:
       - ${WEBPACKPORT}:${WEBPACKPORT}
+
+  app:
+    build:
+      context: ./app
+    volumes:
+      - ./app:/srv
+
+  luigi:
+    build:
+      context: ./app
+    command: luigid
+    volumes:
+      - ./app:/srv
+    ports:
+      - ${LUIGI_PORT}:8082
 
 volumes:
   db-data:

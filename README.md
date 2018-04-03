@@ -1,1 +1,7 @@
 # fpack
+.env
+```
+WEBPACKPORT=8888
+LUIGI_PORT=8082
+```
+

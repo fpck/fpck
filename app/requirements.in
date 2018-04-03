@@ -1,0 +1,33 @@
+# parformance 
+cython
+
+# webapi
+gunicorn
+httplib2
+oauth2client
+flask
+flask-restful
+
+# orm
+SQLAlchemy
+psycopg2-binary
+
+# workflow engine
+luigi
+
+# machine learning or collection tools
+scikit-learn
+pyfunctional
+cytoolz
+numba
+keras
+tensorflow
+numpy
+pandas
+pygraphviz
+networkx
+
+# other utils
+timeout-decorator
+
+
