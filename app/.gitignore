@@ -40,3 +40,6 @@ docs/site
 .coverage*
 .cache
 **.*.pkl.gz
+data
+!data/.gitkeep
+
