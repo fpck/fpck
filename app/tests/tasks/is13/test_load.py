@@ -1,7 +1,6 @@
-import subprocess
-import os
+import luigi
+from fpck.tasks.is13.train import Train
 
 
 def test_load():
-    cmd = f'luigi --module tasks.is13.train Train --local-scheduler --log-level=DEBUG'
-    assert subprocess.call(cmd.split(' ')) == 0
+    luigi.build([Train(fold=0)], scheduler_host='luigi')

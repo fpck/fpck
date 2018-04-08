@@ -38,6 +38,9 @@ class Train(luigi.Task):
         url = f'http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/{filename}'
         return Download(url=url, path=path)
 
+    def output(self):
+        return luigi.LocalTarget('/srv/data/from_train.txt')
+
     def run(self):
         with gzip.open(self.input().path, 'rb') as f:
             train_set, valid_set, test_set, dicts = pickle.load(
@@ -49,4 +52,5 @@ class Train(luigi.Task):
         valid_lex, valid_ne, valid_y = valid_set
         test_lex,  test_ne,  test_y = test_set
         data = pipe(range(5), lambda x: contextwin(x, 3), list)
-        print(data)
+        with self.output().open('w') as f:
+            f.write('hello\n')
