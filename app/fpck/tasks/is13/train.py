@@ -6,6 +6,9 @@ import gzip
 import pickle
 import inspect
 from cytoolz.curried import pipe, map
+import theano.tensor as T
+import theano
+import numpy
 
 
 def contextwin(l, win):
@@ -38,9 +41,6 @@ class Train(luigi.Task):
         url = f'http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/{filename}'
         return Download(url=url, path=path)
 
-    def output(self):
-        return luigi.LocalTarget('/srv/data/from_train.txt')
-
     def run(self):
         with gzip.open(self.input().path, 'rb') as f:
             train_set, valid_set, test_set, dicts = pickle.load(
@@ -51,6 +51,16 @@ class Train(luigi.Task):
         train_lex, train_ne, train_y = train_set
         valid_lex, valid_ne, valid_y = valid_set
         test_lex,  test_ne,  test_y = test_set
-        data = pipe(range(5), lambda x: contextwin(x, 3), list)
-        with self.output().open('w') as f:
-            f.write('hello\n')
+        nv, de, cs = 1000, 50, 7
+        embeddings = theano.shared(
+            0.2 * numpy.random.uniform(-1.0, 1.0, (nv + 1, de)).astype(theano.config.floatX))
+        idxs = T.imatrix()
+        x = embeddings[idxs].reshape((idxs.shape[0], de * cs))
+        f = theano.function(inputs=[idxs], outputs=x)
+
+        sample = numpy.array([0, 1, 2, 3, 4], dtype=numpy.int32)
+        csample = contextwin(sample, 7)
+        feature = f(csample)
+        print(feature.shape)
+
+        #  data = pipe(range(5), lambda x: contextwin(x, 3), list)

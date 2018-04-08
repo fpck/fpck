@@ -20,6 +20,7 @@ scikit-learn
 pyfunctional
 cytoolz
 numba
+theano
 keras
 tensorflow
 numpy
