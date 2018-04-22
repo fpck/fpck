@@ -20,4 +20,4 @@ COPY ./dev-requirements.txt /srv/dev-requirements.txt
 RUN pip install -r requirements.txt --no-cache-dir  && \
     pip install -r dev-requirements.txt  --no-cache-dir 
 COPY ./ /srv
-RUN python setup.py install
+RUN python setup.py develop
