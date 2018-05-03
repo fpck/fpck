@@ -20,6 +20,7 @@ cytoolz
 numpy
 pandas
 torch
+torchvision
 
 
 
