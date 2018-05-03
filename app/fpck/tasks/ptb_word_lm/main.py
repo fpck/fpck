@@ -43,3 +43,4 @@ class Train(luigi.Task):
 
     def run(self):
         print('running!')
+        print(self.input())

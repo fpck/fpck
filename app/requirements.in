@@ -16,19 +16,10 @@ psycopg2-binary
 luigi
 
 # machine learning or collection tools
-scikit-learn
-pyfunctional
 cytoolz
-numba
-theano
-keras
-tensorflow
 numpy
 pandas
-pygraphviz
-networkx
+torch
 
-# other utils
-timeout-decorator
 
 
