@@ -22,5 +22,6 @@ pandas
 torch
 torchvision
 
-
+mpld3
+matplotlib
 
