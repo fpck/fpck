@@ -6,6 +6,7 @@
 #
 aniso8601==3.0.0          # via flask-restful
 click==6.7                # via flask
+cycler==0.10.0            # via matplotlib
 cython==0.28.2
 cytoolz==0.9.0.1
 docutils==0.14            # via python-daemon
@@ -15,9 +16,12 @@ gunicorn==19.8.1
 httplib2==0.11.3
 itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
+kiwisolver==1.0.1         # via matplotlib
 lockfile==0.12.2          # via python-daemon
 luigi==2.7.5
 markupsafe==1.0           # via jinja2
+matplotlib==2.2.2
+mpld3==0.3
 numpy==1.14.3
 oauth2client==4.1.2
 pandas==0.22.0
@@ -25,11 +29,12 @@ pillow==5.1.0             # via torchvision
 psycopg2-binary==2.7.4
 pyasn1-modules==0.2.1     # via oauth2client
 pyasn1==0.4.2             # via oauth2client, pyasn1-modules, rsa
+pyparsing==2.2.0          # via matplotlib
 python-daemon==2.1.2      # via luigi
 python-dateutil==2.7.3    # via pandas
 pytz==2018.4              # via flask-restful, pandas
 rsa==3.4.2                # via oauth2client
-six==1.11.0               # via flask-restful, oauth2client, python-dateutil, torchvision
+six==1.11.0               # via cycler, flask-restful, matplotlib, oauth2client, python-dateutil, torchvision
 sqlalchemy==1.2.7
 toolz==0.9.0              # via cytoolz
 torch==0.4.0
