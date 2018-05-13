@@ -53,7 +53,6 @@ services:
       - ./app:/srv
       - ./data:/data
     depends_on:
-      - luigi
       - web
 
 volumes:
