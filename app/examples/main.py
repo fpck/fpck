@@ -1,10 +1,15 @@
 from __future__ import print_function
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
 import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from cytoolz.curried import pipe, map, first
 from torchvision import datasets, transforms
+import numpy as np
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
@@ -70,43 +75,64 @@ class Net(nn.Module):
 model = Net().to(device)
 
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+data, target = pipe(train_loader, first)
 
 
-#  def train(epoch):
-#      model.train()
-#      for batch_idx, (data, target) in enumerate(train_loader):
-#          data, target = data.to(device), target.to(device)
-#          optimizer.zero_grad()
-#          output = model(data)
-#          loss = F.nll_loss(output, target)
-#          loss.backward()
-#          optimizer.step()
-#          if batch_idx % args.log_interval == 0:
-#              print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-#                  epoch, batch_idx * len(data), len(train_loader.dataset),
-#                  100. * batch_idx / len(train_loader), loss.item()))
-#
-#
-#  def test():
-#      model.eval()
-#      test_loss = 0
-#      correct = 0
-#      with torch.no_grad():
-#          for data, target in test_loader:
-#              data, target = data.to(device), target.to(device)
-#              output = model(data)
-#              # sum up batch loss
-#              test_loss += F.nll_loss(output, target, size_average=False).item()
-#              # get the index of the max log-probability
-#              pred = output.max(1, keepdim=True)[1]
-#              correct += pred.eq(target.view_as(pred)).sum().item()
-#
-#      test_loss /= len(test_loader.dataset)
-#      print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-#          test_loss, correct, len(test_loader.dataset),
-#          100. * correct / len(test_loader.dataset)))
-#
-#
-#  for epoch in range(1, args.epochs + 1):
-#      train(epoch)
-#      test()
+def imshow(inp, path=None):
+    """Imshow for Tensor."""
+    inp = inp.numpy().transpose((1, 2, 0))
+    mean = np.array([0.485, 0.456, 0.406])
+    std = np.array([0.229, 0.224, 0.225])
+    inp = std * inp + mean
+    inp = np.clip(inp, 0, 1)
+    plt.imshow(inp)
+    if path is not None:
+        plt.title(path)
+    plt.savefig(path)
+
+def train(epoch):
+    model.train()
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.to(device)
+        optimizer.zero_grad()
+        output = model(data)
+        loss = F.nll_loss(output, target)
+        loss.backward()
+        optimizer.step()
+        if batch_idx % args.log_interval == 0:
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                epoch, batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.item()))
+
+
+def test():
+    model.eval()
+    test_loss = 0
+    correct = 0
+    with torch.no_grad():
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            # sum up batch loss
+            test_loss += F.nll_loss(output, target, size_average=False).item()
+            # get the index of the max log-probability
+            pred = output.max(1, keepdim=True)[1]
+            correct += pred.eq(target.view_as(pred)).sum().item()
+
+    test_loss /= len(test_loader.dataset)
+    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        test_loss, correct, len(test_loader.dataset),
+        100. * correct / len(test_loader.dataset)))
+
+
+
+
+if __name__ == '__main__':
+    #  for epoch in range(1, args.epochs + 1):
+    #      train(epoch)
+    #      test()
+    for i in range(64):
+        imshow(data[i], path=f"/data/image_{i}_{target[i]}")
+    #  print(data)
+
+
