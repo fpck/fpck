@@ -75,7 +75,6 @@ class Net(nn.Module):
 model = Net().to(device)
 
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-data, target = pipe(train_loader, first)
 
 
 def imshow(inp, path=None):
@@ -90,6 +89,7 @@ def imshow(inp, path=None):
         plt.title(path)
     plt.savefig(path)
 
+
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -103,6 +103,7 @@ def train(epoch):
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
+    return model
 
 
 def test():
@@ -125,14 +126,21 @@ def test():
         100. * correct / len(test_loader.dataset)))
 
 
-
-
 if __name__ == '__main__':
-    #  for epoch in range(1, args.epochs + 1):
-    #      train(epoch)
-    #      test()
-    for i in range(64):
-        imshow(data[i], path=f"/data/image_{i}_{target[i]}")
-    #  print(data)
+    for epoch in range(1, 10):
+        train(epoch)
+    torch.save(model.state_dict(), '/data/mnist_model.pt')
 
+    sample_index = 25
+    state_dict = torch.load('/data/mnist_model.pt')
+    model.load_state_dict(state_dict)
 
+    data, target = pipe(train_loader, first)
+    sample = data[sample_index].view(-1, 1, 28, 28)
+    imshow(sample[0], path=f"/data/input_data_{target[sample_index]}.png")
+    sample = sample.to(device)
+
+    out = model.forward(sample)
+
+    print(f'anser is {target[sample_index]}')
+    print(torch.argmax(out))
